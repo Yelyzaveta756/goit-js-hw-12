@@ -10,9 +10,8 @@ import {searchImages} from "./js/pixabay-api.js"
 const lightbox = new SimpleLightbox('.gallery div ', {
   captionsData: 'alt',
   captionDelay: 250,
+  alertError: false,
 });
-
-console.log(lightbox)
 
 const searchForm = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
