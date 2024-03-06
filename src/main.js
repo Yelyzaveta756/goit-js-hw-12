@@ -19,8 +19,8 @@ const loader = document.querySelector('.loader');
 const loadMoreBtn = document.querySelector('.load-btn');
 
 searchForm.addEventListener('submit', handleSearch);
+loadMoreBtn.style.display = 'none';
 loader.style.display = 'none';
-loadMoreBtn.style.display = 'none'
 
 let currentPage;
 let currentQuery;
@@ -28,8 +28,7 @@ let totalHits;
 
 async function handleSearch(event) {
   event.preventDefault();
-
-  loader.style.display = 'inline-block';
+  loader.style.display = 'block';
 
   gallery.innerHTML = '';
 
@@ -42,8 +41,8 @@ async function handleSearch(event) {
       color: 'yellow',
       message: 'Please search for something',
     });
+    loadMoreBtn.style.display = 'none';
     loader.style.display = 'none';
-    loadMoreBtn.style.display = 'none'
     return;
   }
 
@@ -53,8 +52,8 @@ async function handleSearch(event) {
     gallery.innerHTML = createMarkup(arr);
     currentQuery = QUERY;
     currentPage = 1;
+    loadMoreBtn.style.display = 'block';
     loader.style.display = 'none';
-    loadMoreBtn.style.display = 'block'
     lightbox.refresh();
     form.reset()
   })
@@ -63,23 +62,30 @@ async function handleSearch(event) {
   })
 }
 
-loadMoreBtn.addEventListener('click', event => {
-  loader.style.display = 'inline-block';
+loadMoreBtn.addEventListener('click', async (event) => {
+  loader.style.display = 'block';
   currentPage += 1;
-  searchImages(currentQuery, 15, currentPage)
-  .then(data => {
-    gallery.innerHTML += createMarkup(data);
+
+  try {
+    const data = await searchImages(currentQuery, 15, currentPage);
+
+    if (currentPage * 15 < totalHits) {
+      gallery.innerHTML += createMarkup(data);
       lightbox.refresh();
       loader.style.display = 'none';
-      if (currentPage * 15 >= totalHits) {
-        loadMoreBtn.style.display = 'none'; 
-        iziToast.info({
-          title: 'Info',
-          timeout: 3000,
-          position: 'bottomRight',
-          message: "We're sorry, but you've reached the end of search results.",
-        });
-      }
-  })
-  .catch(error => alert(error.message))
-})
+    } else {
+      loadMoreBtn.style.display = 'none';
+      iziToast.info({
+        title: 'Info',
+        timeout: 3000,
+        position: 'bottomRight',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert(error.message);
+  }
+});
+
+

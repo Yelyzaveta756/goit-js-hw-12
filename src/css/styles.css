@@ -6,7 +6,7 @@ body {
   font-family: Montserrat, sans-serif;
   background: linear-gradient(#e66465, #9198e5);
   background-repeat: no-repeat;
-  /* background-size: cover; */
+  background-size: cover;
 }
 
 .form{
@@ -60,9 +60,10 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
+  position: fixed;
   bottom: 0;
-  
+  left: 50%;
+  z-index: 999999999
 }
 
 .load-btn:hover,
@@ -79,7 +80,6 @@ body {
   row-gap: 28px;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#e66465, #9198e5);
 }
 
 .gallery-info {
