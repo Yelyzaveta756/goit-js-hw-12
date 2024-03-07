@@ -38,3 +38,4 @@ export async function searchImages(QUERY, perPage, page) {
 }
 
 
+

@@ -74,11 +74,12 @@ loadMoreBtn.addEventListener('click', async (event) => {
       lightbox.refresh();
       loader.style.display = 'none';
       loadMoreBtn.style.display = 'none';
-      scrollToNextGroup();
+      smoothScrollToGallery();
     } else {
       iziToast.show({
         title: 'Info',
         timeout: 2000,
+        color: 'blue',
         position: 'bottomRight',
         message: "We're sorry, but you've reached the end of search results.",
       });
@@ -86,30 +87,34 @@ loadMoreBtn.addEventListener('click', async (event) => {
   } catch (error) {
     console.error('Error:', error);
     alert(error.message);
+  } finally {
+    loadMoreBtn.style.display = 'none'
   }
 });
 
-function scrollToNextGroup() {
-  const galleryCard = document.querySelector('.gallery-item');
-  const cardRect = galleryCard.getBoundingClientRect();
-  const galleryCardHeight = cardRect.height;
-  
-  window.scrollBy({
-    top: galleryCardHeight * 2,
-    behavior: 'smooth'
-  });
-}
 
 window.onscroll = function () {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    showLoadMoreButton();
+    loadMoreBtn.style.display = 'block';
+    loader.style.display = "block"
+
+    
   } else {
     loadMoreBtn.style.display = 'none';
+    loader.style.display = "none"
   }
 };
 
-function showLoadMoreButton() {
-  loadMoreBtn.style.display = 'block';
+function smoothScrollToGallery() {
+  const cards = document.querySelector('.gallery-item');
+  
+  if (cards.length > 0) {
+      const cardHeight = cards[0].getBoundingClientRect().height;
+      window.scrollBy({ 
+        top: cardHeight * 2, 
+        behavior: 'smooth' 
+      });
+  }
 }
 
 

@@ -59,7 +59,7 @@ body {
   margin-right: auto;
   position: fixed;
   bottom: 20px;
-  left: 45%;
+  left: 40%;
 }
 
 .load-btn:hover,
@@ -151,6 +151,7 @@ transition: transform 0.5s ease;
   0% , 60% , 100%{ transform:  scale(1) }
   80% { transform:  scale(1.2)}
 }
+
 
 
 
