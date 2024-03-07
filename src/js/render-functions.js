@@ -38,7 +38,6 @@ export function createMarkup(arr) {
   </div>`
     )
     .join('');
-    console.log(data)
 }
 
 

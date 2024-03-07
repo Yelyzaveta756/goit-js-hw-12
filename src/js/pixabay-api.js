@@ -19,26 +19,22 @@ export async function searchImages(QUERY, perPage, page) {
   try {
     const response = await axios.get(LINK);
 
-    if (!response.data.hits.length) {
+    if (response.data.hits.length === 0) {
       iziToast.error({
         title: 'Error',
-        timeout: 3000,
+        timeout: 2000,
         position: 'bottomRight',
         message: 'Sorry, there are no images matching your search query. Please try again!',
       });
       loadMoreBtn.style.display = 'none';
       loader.style.display = 'none';
       searchForm.reset()
-      return;
     }
-    
     return response.data;
 
   } catch (error) {
     console.error(`Error: ${error}`);
-  } finally {
-    
-  }
+  } 
 }
 
 
