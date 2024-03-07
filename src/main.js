@@ -74,7 +74,7 @@ loadMoreBtn.addEventListener('click', async (event) => {
       lightbox.refresh();
       loader.style.display = 'none';
       loadMoreBtn.style.display = 'none';
-      // smoothScrollToGallery();
+      smootScroll()
     } else {
       iziToast.show({
         title: 'Info',
@@ -97,24 +97,17 @@ window.onscroll = function () {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
     loadMoreBtn.style.display = 'block';
     loader.style.display = "block"
-
-    
   } else {
     loadMoreBtn.style.display = 'none';
     loader.style.display = "none"
   }
 };
 
-// function smoothScrollToGallery() {
-//   const cards = document.querySelector('.gallery-item');
-  
-//   if (cards.length > 0) {
-//       const cardHeight = cards[0].getBoundingClientRect().height;
-//       window.scrollBy({ 
-//         top: cardHeight * 2, 
-//         behavior: 'smooth' 
-//       });
-//   }
-// }
+function smootScroll() {
+const galleryHeight = gallery.firstElementChild.getBoundingClientRect().height
 
-
+window.scrollBy({
+  top: 3 * galleryHeight,
+  behavior: 'smooth'
+})
+}
