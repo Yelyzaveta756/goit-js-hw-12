@@ -9,13 +9,13 @@ export function createMarkup(arr) {
       views, 
       comments, 
       downloads}) => 
-      `<div class="gallery-item>
+      `<div class="gallery-item">
       <a class="gallery-link" href="${largeImageURL}">
           <img 
           class="gallery-image" 
           src="${webformatURL}" 
           alt="${tags}" 
-          width="360px" height="260px"/>
+          />
       </a>
       <div class="gallery-info">
           <p class="gallery-info-par">

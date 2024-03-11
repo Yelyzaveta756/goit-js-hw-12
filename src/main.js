@@ -1,8 +1,8 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 import {createMarkup} from "./js/render-functions.js"
 import {searchImages} from "./js/pixabay-api.js"
@@ -92,22 +92,26 @@ loadMoreBtn.addEventListener('click', async (event) => {
   }
 });
 
-
 window.onscroll = function () {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    loadMoreBtn.style.display = 'block';
-    loader.style.display = "block"
+    if (currentPage * 15 < totalHits) {
+      loadMoreBtn.style.display = 'block';
+      loader.style.display = "block";
+    } else {
+      loadMoreBtn.style.display = 'none';
+      loader.style.display = "none";
+    }
   } else {
     loadMoreBtn.style.display = 'none';
-    loader.style.display = "none"
+    loader.style.display = "none";
   }
 };
 
 function smootScroll() {
-const galleryHeight = gallery.firstElementChild.getBoundingClientRect().height
+  const galleryHeight = gallery.firstElementChild.getBoundingClientRect().height
 
-window.scrollBy({
-  top: 2 * galleryHeight,
-  behavior: 'smooth'
-})
+  window.scrollBy({
+    top: 2 * galleryHeight,
+    behavior: 'smooth'
+  })
 }
