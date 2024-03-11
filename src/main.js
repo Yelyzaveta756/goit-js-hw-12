@@ -62,12 +62,12 @@ async function handleSearch(event) {
   })
 }
 
-loadMoreBtn.addEventListener('click', async (event) => {
+loadMoreBtn.addEventListener('click', async () => {
   loader.style.display = 'block';
-  currentPage += 1;
 
   try {
     const data = await searchImages(currentQuery, 15, currentPage);
+    currentPage += 1;
 
     if (currentPage * 15 < totalHits) {
       gallery.innerHTML += createMarkup(data);
