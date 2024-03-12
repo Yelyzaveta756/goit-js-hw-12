@@ -19,23 +19,23 @@ const loader = document.querySelector('.loader');
 const loadMoreBtn = document.querySelector('.load-btn');
 
 searchForm.addEventListener('submit', handleSearch);
-loadMoreBtn.style.display = 'none';
-loader.style.display = 'none';
 
 let currentPage;
 let currentQuery;
 let totalHits;
+loadMoreBtn.style.display = 'none'
 
 async function handleSearch(event) {
+  currentPage = 1;
   event.preventDefault();
   loader.style.display = 'block';
 
   gallery.innerHTML = '';
 
   const form = event.currentTarget;
-  const QUERY = form.elements.query.value.trim();
+  currentQuery = form.elements.query.value.trim();
 
-  if (QUERY === '') {
+  if (currentQuery === '') {
     iziToast.show({
       title: 'Error',
       color: 'yellow',
@@ -46,12 +46,10 @@ async function handleSearch(event) {
     return;
   }
 
-  searchImages(QUERY, 15, 1)
+  searchImages(currentQuery, currentPage)
   .then(arr => {
     totalHits = arr.totalHits;
     gallery.innerHTML = createMarkup(arr);
-    currentQuery = QUERY;
-    currentPage = 1;
     loadMoreBtn.style.display = 'none';
     loader.style.display = 'none';
     lightbox.refresh();
@@ -66,14 +64,12 @@ loadMoreBtn.addEventListener('click', async () => {
   loader.style.display = 'block';
 
   try {
-    const data = await searchImages(currentQuery, 15, currentPage);
+    const data = await searchImages(currentQuery, currentPage);
     currentPage += 1;
 
     if (currentPage * 15 < totalHits) {
       gallery.innerHTML += createMarkup(data);
       lightbox.refresh();
-      loader.style.display = 'none';
-      loadMoreBtn.style.display = 'none';
       smootScroll()
     } else {
       iziToast.show({
@@ -95,14 +91,11 @@ loadMoreBtn.addEventListener('click', async () => {
 window.onscroll = function () {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
     if (currentPage * 15 < totalHits) {
-      loadMoreBtn.style.display = 'block';
       loader.style.display = "block";
     } else {
-      loadMoreBtn.style.display = 'none';
       loader.style.display = "none";
     }
   } else {
-    loadMoreBtn.style.display = 'none';
     loader.style.display = "none";
   }
 };

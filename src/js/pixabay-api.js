@@ -9,9 +9,9 @@ const loader = document.querySelector('.loader');
 const loadMoreBtn = document.querySelector('.load-btn');
 const searchForm = document.querySelector('.form');
 
-export async function searchImages(QUERY, perPage, page) {
+export async function searchImages(currentQuery, currentPage) {
   
-  const LINK = `${URL}?key=${KEY}&q=${QUERY}&image_type=photo&orientation=horizontal&savesearch=true&page=${page}&per_page=${perPage}`;
+  const LINK = `${URL}?key=${KEY}&q=${currentQuery}&image_type=photo&orientation=horizontal&savesearch=true&page=${currentPage}&per_page=15`;
 
 
   loader.style.display = 'block';
