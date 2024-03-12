@@ -1,3 +1,5 @@
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 export function createMarkup(arr) {
 
@@ -39,3 +41,32 @@ export function createMarkup(arr) {
     )
     .join('');
 }
+
+
+export function showEndOfListMessage() {
+    iziToast.show({
+      title: 'Info',
+      color: 'blue',
+      timeout: 3000,
+      position: 'bottomRight',
+      message: "We're sorry, but you've reached the end of search results.",
+    });
+  }
+  
+  export function showEmptyInput() {
+    iziToast.info({
+        timeout: 3000,
+        color: 'yellow',
+        position: 'bottomRight',
+        message: 'Please search for something',
+    });
+  }
+  
+  export function noMessage() {
+    iziToast.error({
+      title: 'Error',
+      timeout: 2000,
+      position: 'bottomRight',
+      message: 'Sorry, there are no images matching your search query. Please try again!',
+    });
+  }
