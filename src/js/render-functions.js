@@ -42,7 +42,6 @@ export function createMarkup(arr) {
     .join('');
 }
 
-
 export function showEndOfListMessage() {
     iziToast.show({
       title: 'Info',
